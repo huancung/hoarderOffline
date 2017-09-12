@@ -189,11 +189,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="My Hoards" id="Pbm-Zh-uD7">
-                        <barButtonItem key="leftBarButtonItem" title="Sign Out" id="lAQ-OH-YcV">
-                            <connections>
-                                <action selector="signOutPressed:" destination="eld-fu-arW" id="NVr-8S-hn3"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Veb-HS-s0v">
                             <connections>
                                 <action selector="addCollectionPressed:" destination="eld-fu-arW" id="H5M-Lj-Kyh"/>
@@ -370,7 +365,7 @@
             </objects>
             <point key="canvasLocation" x="1184.8" y="-93.103448275862078"/>
         </scene>
-        <!--Add/Edit Item-->
+        <!--Add Item-->
         <scene sceneID="zBX-V1-LHO">
             <objects>
                 <viewController id="9bF-OG-dsW" customClass="ItemVC" customModule="Hoarder" customModuleProvider="target" sceneMemberID="viewController">
@@ -468,7 +463,7 @@
                             <constraint firstItem="o8z-Aj-5VC" firstAttribute="trailing" secondItem="eDN-5s-LAB" secondAttribute="trailingMargin" id="z7t-16-gMc"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Add/Edit Item" id="bee-Fz-w7l">
+                    <navigationItem key="navigationItem" title="Add Item" id="bee-Fz-w7l">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="YO4-fj-fq6">
                             <connections>
                                 <action selector="cancelButtonPressed:" destination="9bF-OG-dsW" id="a3r-1M-qIZ"/>

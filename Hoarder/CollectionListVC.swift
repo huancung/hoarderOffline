@@ -27,10 +27,6 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     override func viewWillAppear(_ animated: Bool) {
         populateCollectionData()
     }
-    
-    @IBAction func signOutPressed(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
 
     override func viewDidAppear(_ animated: Bool) {
         if willReloadData {

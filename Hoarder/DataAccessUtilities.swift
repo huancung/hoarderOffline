@@ -9,11 +9,18 @@
 import Foundation
 import RealmSwift
 
+/**
+ Helper class to handle data management for the app.
+ */
 public class DataAccessUtilities {
     static let sharedInstance = DataAccessUtilities()
     static var itemCountHandles = [UInt]()
     static let realm = try! Realm()
     
+    /**
+     Returns a list of all the collections saved in the app.
+     - Returns: [CollectionType]
+    */
     static func getCollectionsList() -> [CollectionType] {
         let collectionSet = realm.objects(ItemCollection.self)
         var collectionList = [CollectionType]()
@@ -65,10 +72,10 @@ public class DataAccessUtilities {
     
     /**
      Saves the collection info.
-     - parameters
-     - collectionName: Name of the collection.
-     - category: Category of that the collection.
-     - description: Description of the collection.
+     - parameters:
+        - collectionName: Name of the collection.
+        - category: Category of that the collection.
+        - description: Description of the collection.
      */
     static func saveCollectionInfo(collectionName: String, category: String, description: String) -> String {
         let itemCollection = ItemCollection()
@@ -93,6 +100,11 @@ public class DataAccessUtilities {
         return collectionID
     }
     
+    /**
+     Deletes the collection information.
+     - parameters:
+        - collectionID: the id of the collection to be deleted.
+    */
     static func deleteCollection(collectionID: String) {
         let refCollection = realm.objects(ItemCollection.self).filter("collectionID ='\(collectionID)'")
         
@@ -106,6 +118,11 @@ public class DataAccessUtilities {
 
     }
     
+    /**
+     Deletes all the items and item photos for a given collection.
+     - parameters:
+        - collectionID: The id of the collection.
+     */
     static func deleteItems(collectionID: String) {
         let refItems = realm.objects(Item.self).filter("collectionID ='\(collectionID)'")
 
@@ -123,6 +140,11 @@ public class DataAccessUtilities {
         }
     }
     
+    /**
+     Deletes an item's information.
+     - parameters:
+        - itemID: The id of the item.
+     */
     static func deleteItemInfo(itemID: String) {
         if let refItem = realm.objects(Item.self).filter("itemID ='\(itemID)'").first {
             do {
@@ -137,6 +159,15 @@ public class DataAccessUtilities {
         }
     }
     
+    /**
+     Saves the information for an item.
+     - parameters:
+        - itemName: name of the item.
+        - description: description of the item.
+        - imageID: id of the image associated with the item. Empty string can be passed if there is no image for the item.
+        - collectionID: id of the collection the item belongs to.
+        - itemID: id of the item to save the information to. If nil is passed the item will be saved as a new entry and a new item id will be assigned.
+    */
     static func saveItemInfo(itemName: String, description: String, imageID: String, collectionID: String, itemID: String?) {
         var item: Item
         
@@ -177,6 +208,12 @@ public class DataAccessUtilities {
         
     }
     
+    /**
+     Creates a new entry that is a duplicate of the item passed with a new item id.
+     - parameters:
+        - item: ItemType
+        - toCollectionID: id of the collection that the copied item will be added to.
+    */
     static func copyItem(item: ItemType, toCollectionID: String) {
         if item.collectionID != toCollectionID {
             if let image = item.itemImage {
@@ -189,6 +226,11 @@ public class DataAccessUtilities {
         }
     }
     
+    /**
+     Save the image to app storage.
+     - parameters:
+        - image: UIImage to be saved.
+    */
     static func saveImage(image: UIImage) -> String {
         let imageID = NSUUID().uuidString
         let fileManager = FileManager.default
@@ -205,6 +247,11 @@ public class DataAccessUtilities {
         return imageID
     }
     
+    /**
+     Gets a list of items associated with a collection.
+     - parameters:
+        - collectionID: id of the collection.
+     */
     static func getItemsList(collectionID: String) -> [ItemType] {
         let itemRef = realm.objects(Item.self).filter("collectionID ='\(collectionID)'")
         var itemList = [ItemType]()
@@ -227,6 +274,11 @@ public class DataAccessUtilities {
         return itemList
     }
     
+    /**
+     Updates the item count information for a collection.
+     - parameters:
+        - collectionID: id of the collection to update.
+    */
     static func updateItemCount(collectionID: String) {
         let refCollection = realm.objects(ItemCollection.self).filter("collectionID ='\(collectionID)'").first
         
@@ -241,13 +293,24 @@ public class DataAccessUtilities {
         }
     }
     
+    /**
+     Gets the item count for a collection.
+     - parameters:
+        - collectionID: id of the collection to update.
+     - Returns: item count as Int.
+     */
     static func getItemCount(collectionID: String) -> Int{
         let itemDataRef = realm.objects(Item.self).filter("collectionID ='\(collectionID)'")
         
         return itemDataRef.count
     }
     
-    
+    /**
+     Save an image to the devices document directory.
+     - parameters:
+        - imageID: id of the image.
+        - image: UIImage to save.
+     */
     static func cacheImage(imageID: String, image: UIImage) {
         let fileManager = FileManager.default
         let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("\(imageID).png")
@@ -260,6 +323,12 @@ public class DataAccessUtilities {
         
     }
     
+    /**
+     Gets a store image.
+     - parameters:
+        - imageID: id of the image.
+     - Returns: UIImage if one exists and nil if image is not found.
+     */
     static func getCachedImage(imageID: String) -> UIImage? {
         print("get cached image")
         let fileManager = FileManager.default
@@ -278,6 +347,11 @@ public class DataAccessUtilities {
         return nil
     }
     
+    /**
+     Deletes a store image.
+     - parameters:
+        - imageID: id of the image.
+     */
     static func deleteImageFromCache(imageID: String){
         let fileManager = FileManager.default
         let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("\(imageID).png")

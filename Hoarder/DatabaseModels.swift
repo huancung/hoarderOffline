@@ -9,6 +9,9 @@
 import Foundation
 import RealmSwift
 
+/**
+ Realm data object definition for an item.
+ */
 public class Item: Object {
     dynamic var collectionID = ""
     dynamic var itemID = ""
@@ -19,6 +22,9 @@ public class Item: Object {
     dynamic var dateAddedString = ""
 }
 
+/**
+ Realm data object definition for a collection.
+ */
 public class ItemCollection: Object {
     dynamic var collectionName = ""
     dynamic var category = ""

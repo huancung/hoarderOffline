@@ -200,6 +200,7 @@ class ItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCon
         } else {
             DataAccessUtilities.saveItemInfo(itemName: itemName, description: description, imageID: imageID, collectionID: collectionUID, itemID: nil)
         }
+        DataAccessUtilities.updateItemCount(collectionID: collectionUID)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

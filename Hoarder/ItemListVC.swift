@@ -99,6 +99,7 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
             self.deleteItem(itemIndex: indexPath.row)
             self.itemTableView.deleteRows(at: [indexPath], with: .fade)
+            DataAccessUtilities.updateItemCount(collectionID: self.collectionUID)
         }
         
         return [delete]
@@ -338,6 +339,9 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 AlertUtil.alert(message: "Pick a different collection!", targetViewController: self)
             }
             
+            
+            DataAccessUtilities.updateItemCount(collectionID: toCollectionID)
+            DataAccessUtilities.updateItemCount(collectionID: self.collectionUID)
         }))
         
         selectCollectionAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
