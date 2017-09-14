@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ View Controller for the New Collection View.
+ */
 class NewCollectionVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet weak var collectionNameText: UITextField!
     @IBOutlet weak var categoryPicker: UIPickerView!
@@ -51,7 +54,6 @@ class NewCollectionVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
         return sortedCollectionCategories[row].capitalized
     }
     

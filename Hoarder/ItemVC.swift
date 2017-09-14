@@ -147,6 +147,12 @@ class ItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCon
         isImageSet = true
     }
     
+    /**
+     Save method of items that have an image associated with it.
+     - parameters:
+        - itemName: Name of item.
+        - description: Item description.
+    */
     private func saveItemWithImage(itemName: String, description: String) {
         if let image = itemImage.image {
             // 1/6 the image size
@@ -162,12 +168,21 @@ class ItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCon
         }
     }
     
+    /**
+     Deletes the image that is associated with the item.
+    */
     private func deleteSavedImage() {
         if let oldImageID = loadedItem?.imageID {
             DataAccessUtilities.deleteImageFromCache(imageID: oldImageID)
         }
     }
     
+    /**
+     Resizes the image for saving.
+     - parameters:
+        - image: UIImage
+        - targetSize: CGSize
+    */
     private func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
         let size = image.size
         
@@ -194,6 +209,13 @@ class ItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCon
         return newImage!
     }
     
+    /**
+     Saves all the item data.
+     - parameters:
+        - itemName: Name of item.
+        - description: Item description.
+        - imageID: ID of image associated with the item.
+    */
     private func saveItemInfo(itemName: String, description: String, imageID: String) {
         if editMode {
             DataAccessUtilities.saveItemInfo(itemName: itemName, description: description, imageID: imageID, collectionID: collectionUID, itemID: loadedItem?.itemID)

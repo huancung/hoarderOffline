@@ -24,6 +24,11 @@ class ItemCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    /**
+     Updates the display for the cell with the item information.
+     - parameters:
+        - item: ItemType
+     */
     public func updateUI(item: ItemType) {
         nameLbl.text = item.itemName
         descLbl.text = item.description

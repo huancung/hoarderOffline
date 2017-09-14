@@ -95,6 +95,11 @@ class EditCollectionVC: UIViewController, UIPickerViewDelegate, UIPickerViewData
         } while (index < sortedCollectionCategories.count)
     }
     
+    /**
+     Toggles the favorite button style.
+     - parameters:
+        - favorite: true or false.
+    */
     private func setFavorite(favorite: Bool) {
         if favorite {
             favoriteButton.alpha = CGFloat(selectedAlpha)
@@ -162,6 +167,9 @@ class EditCollectionVC: UIViewController, UIPickerViewDelegate, UIPickerViewData
         self.navigationController?.popViewController(animated: true)
     }
     
+    /**
+     Deletes the entire collection. This will remove all items and images stored for this collection.
+    */
     private func deleteCollection() {
         BusyModal.startBusyModalAndHideNav(targetViewController: self)
         let collectionID = collectionObj.collectionID

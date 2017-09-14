@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ Collection class object.
+*/
 public class CollectionType {
     private var _collectionName = ""
     private var _category = ""
@@ -18,6 +21,17 @@ public class CollectionType {
     private var _dateCreated = 0.0
     private var _dateCreatedString = ""
     
+    /**
+     Default constructor.
+     - parameters:
+        - collectionName: Name of collection.
+        - category: Collection category.
+        - collectionID: Collection unique identifier.
+        - itemCount: Number of items in the collection.
+        - creationDateString: MMM DD, YYYY representation of the date the collection was created.
+        - creationDate: Creation date as UTC Double.
+        - isFavorite: Indicates if the collection is favored by the user for sorting and displaying purposes.
+    */
     init(collectionName: String, category: String, description: String, collectionID: String, itemCount: Int, creationDateString: String, creationDate: Double, isFavorite: Bool) {
         _collectionName = collectionName
         _category = category

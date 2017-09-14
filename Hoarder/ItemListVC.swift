@@ -105,12 +105,23 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         return [delete]
     }
     
+    /**
+     Will display the item data for a given cell.
+     - parameters:
+        - cell: ItemCell.
+        - indexPath: IndexPath.
+    */
     func configureCell(cell: ItemCell, indexPath: IndexPath) {
         let item = getItem(index: indexPath.row)
         
         cell.updateUI(item: item)
     }
     
+    /**
+     Gets the item at a given index.
+     - parameters:
+        - index: Index of item desired.
+    */
     func getItem(index: Int) -> ItemType {
         var item: ItemType!
         
@@ -123,6 +134,9 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         return item
     }
     
+    /**
+     Retrieves and populates the tableview with the item data for the collection.
+    */
     private func populateItemCellData() {
         BusyModal.startBusyModalAndHideNav(targetViewController: self)
         itemList = DataAccessUtilities.getItemsList(collectionID: collectionUID)
@@ -131,11 +145,19 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         BusyModal.stopBusyModalAndShowNav(targetViewController: self)
     }
     
+    /**
+     Resets the search parameters.
+    */
     private func resetSearch() {
         inSearchMode = false
         searchBar.text = ""
     }
     
+    /**
+     Method for deleting a single item when user left swipes a row.
+     - parameters:
+        - itemIndex: index of the item to be deleted
+    */
     private func deleteItem(itemIndex: Int) {
         var item: ItemType!
         
@@ -208,6 +230,9 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         }
     }
     
+    /**
+     This function will display action options if items are selected during edit mode.
+    */
     func doneButtonPressed() {
         if let selectedItems = itemTableView.indexPathsForSelectedRows, selectedItems.count > 0 {
             let optionMenu = UIAlertController(title: "Choose an Action", message: nil, preferredStyle: .actionSheet)
@@ -247,6 +272,11 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         }
     }
     
+    /**
+     Edit mode functionality. Will apply desired action to selected items.
+     - parameters:
+        - itemAction: ItemActionOption.
+    */
     private func collectionSelect(itemAction: ItemActionOption) {
         if collectionsList.count == 1 {
             AlertUtil.message(title: "Not Gonna Happen", message: "You have to create another hoard to do this action!", targetViewController: self)
@@ -351,6 +381,9 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         self.present(selectCollectionAlert, animated: true)
     }
     
+    /**
+     Toggles edit move for the tableview.
+    */
     private func endEditMode() {
         itemTableView.setEditing(false, animated: true)
         navigationItem.setRightBarButton(nil, animated: true)

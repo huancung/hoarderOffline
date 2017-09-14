@@ -77,6 +77,9 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         performSegue(withIdentifier: "ItemListSegue", sender: collectionList[indexPath.row])
     }
     
+    /**
+     Retrieves the collection data and populates the tableview with the information.
+     */
     private func populateCollectionData() {
         BusyModal.startBusyModal(targetViewController: self)
         collectionList = DataAccessUtilities.getCollectionsList()
@@ -85,6 +88,11 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         BusyModal.stopBusyModal()
     }
     
+    /**
+     Updates the display for the cell with the collection information.
+     - parameters:
+        - sortBy: 0 for favorites first, 1 for alphabetical, and default is date created.
+     */
     private func setSortOrder(sortBy: Int) {
         switch sortBy {
             case 0:
@@ -107,6 +115,9 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         }
     }
     
+    /**
+     Segues to the Edit Collection View for updating of collection information.
+    */
     @IBAction func setupButtonPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "editCollectionSegue", sender: collectionList[sender.tag])
     }

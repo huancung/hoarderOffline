@@ -7,7 +7,9 @@
 //
 
 import UIKit
-
+/**
+ Item class object.
+ */
 public class ItemType {
     private var _collectionID = ""
     private var _itemID = ""
@@ -18,6 +20,17 @@ public class ItemType {
     private var _dateAddedString = ""
     private var _itemImage: UIImage?
     
+    /**
+     Default constructor.
+     - parameters:
+        - collectionID: the id of the collection this item belongs to.
+        - itemID: unique id for this item.
+        - itemName: Name of item.
+        - description: description of item.
+        - imageID: ID of image for this item.
+        - dateAdded: UTC timestamp for the date this item was added.
+        - dateAddedString: MMM DD, YYYY string representation of date created.
+    */
     init(collectionID: String, itemID: String, itemName: String, description: String, imageID: String, dateAdded: Double, dateAddedString: String) {
         _collectionID = collectionID
         _itemID = itemID

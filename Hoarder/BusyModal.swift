@@ -8,10 +8,18 @@
 
 import UIKit
 
+/**
+ Helper class that adds and removes busy modal overlay.
+ */
 public class BusyModal {
     static let sharedInstance = BusyModal()
     static let modal = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.light))
     
+    /**
+     Starts the busy modal spinner and blocks out functionality on the target view.
+     - parameters:
+        - targetViewController: The view that will have the busy modal overlay.
+    */
     static func startBusyModalAndHideNav(targetViewController: UIViewController) {
         targetViewController.navigationItem.backBarButtonItem?.isEnabled = false
         targetViewController.navigationItem.leftBarButtonItem?.isEnabled = false
@@ -19,6 +27,11 @@ public class BusyModal {
         startBusyModal(targetViewController: targetViewController)
     }
     
+    /**
+     Stops the busy modal spinner and returns functionality back to the target view.
+     - parameters:
+     - targetViewController: The view that has the busy modal overlay.
+     */
     static func stopBusyModalAndShowNav(targetViewController: UIViewController) {
         targetViewController.navigationItem.backBarButtonItem?.isEnabled = true
         targetViewController.navigationItem.leftBarButtonItem?.isEnabled = true
