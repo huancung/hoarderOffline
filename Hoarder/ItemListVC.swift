@@ -14,6 +14,8 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBOutlet weak var searchSegmentedControl: UISegmentedControl!
     @IBOutlet var actionButton: UIBarButtonItem!
     @IBOutlet var addItemButton: UIBarButtonItem!
+    @IBOutlet weak var emptyItemLbl: UILabel!
+    
     var doneButtonItem: UIBarButtonItem!
     
     var collectionName: String!
@@ -140,6 +142,12 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     private func populateItemCellData() {
         BusyModal.startBusyModalAndHideNav(targetViewController: self)
         itemList = DataAccessUtilities.getItemsList(collectionID: collectionUID)
+        
+        if itemList.isEmpty {
+            emptyItemLbl.isHidden = false
+        } else {
+            emptyItemLbl.isHidden = true
+        }
         itemList = itemList.sorted(by: {$0.itemName < $1.itemName})
         itemTableView.reloadData()
         BusyModal.stopBusyModalAndShowNav(targetViewController: self)

@@ -174,14 +174,22 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Collections" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2hA-5c-Lgc">
+                                <rect key="frame" x="132" y="323" width="111.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.94509803921568625" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="2hA-5c-Lgc" firstAttribute="centerY" secondItem="YcW-AG-xmf" secondAttribute="centerY" id="0o8-48-d5f"/>
                             <constraint firstItem="xda-33-72c" firstAttribute="trailing" secondItem="YcW-AG-xmf" secondAttribute="trailingMargin" id="3E6-8h-zrP"/>
                             <constraint firstAttribute="trailing" secondItem="BmL-Oy-NWx" secondAttribute="trailing" id="7Eg-Qo-TXN"/>
                             <constraint firstItem="BmL-Oy-NWx" firstAttribute="top" secondItem="xda-33-72c" secondAttribute="bottom" constant="8" id="8tV-Ug-paX"/>
                             <constraint firstItem="BmL-Oy-NWx" firstAttribute="leading" secondItem="YcW-AG-xmf" secondAttribute="leading" id="Dqg-tt-zLB"/>
                             <constraint firstAttribute="trailing" secondItem="BmL-Oy-NWx" secondAttribute="trailing" id="MPp-Xv-VXG"/>
+                            <constraint firstItem="2hA-5c-Lgc" firstAttribute="centerX" secondItem="YcW-AG-xmf" secondAttribute="centerX" id="QOj-sp-ICG"/>
                             <constraint firstItem="xda-33-72c" firstAttribute="leading" secondItem="YcW-AG-xmf" secondAttribute="leadingMargin" id="YGK-Wp-yX6"/>
                             <constraint firstItem="xda-33-72c" firstAttribute="top" secondItem="fP6-y3-cmN" secondAttribute="bottom" constant="15" id="clA-G7-YvW"/>
                             <constraint firstItem="BmL-Oy-NWx" firstAttribute="leading" secondItem="YcW-AG-xmf" secondAttribute="leading" id="tUU-R7-DQ2"/>
@@ -197,6 +205,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionTableView" destination="BmL-Oy-NWx" id="xzL-Lt-sx2"/>
+                        <outlet property="emptyCollectionLbl" destination="2hA-5c-Lgc" id="IUh-6P-fEN"/>
                         <outlet property="sortSegController" destination="xda-33-72c" id="6Rn-Eh-Ekq"/>
                         <segue destination="1qB-6Z-Om6" kind="show" identifier="NewCollectionSegue" id="Wfc-ZM-IF1"/>
                         <segue destination="RV3-Bb-hMb" kind="show" identifier="editCollectionSegue" id="MGh-fg-9fw"/>
@@ -317,6 +326,12 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Items in Collection" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tah-11-wm6">
+                                <rect key="frame" x="104" y="323" width="167.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search Items" translatesAutoresizingMaskIntoConstraints="NO" id="IhP-vr-ZLb">
                                 <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -333,6 +348,8 @@
                             <constraint firstItem="P3o-RQ-IIj" firstAttribute="leading" secondItem="Q9n-cE-iME" secondAttribute="leadingMargin" id="UWt-lm-u9A"/>
                             <constraint firstItem="yOh-z5-ewW" firstAttribute="top" secondItem="koq-jS-ulO" secondAttribute="bottom" constant="20" id="Wht-Ea-HLq"/>
                             <constraint firstAttribute="trailing" secondItem="koq-jS-ulO" secondAttribute="trailing" id="X9m-SB-My0"/>
+                            <constraint firstItem="tah-11-wm6" firstAttribute="centerY" secondItem="Q9n-cE-iME" secondAttribute="centerY" id="ZSw-Pg-j4g"/>
+                            <constraint firstItem="tah-11-wm6" firstAttribute="centerX" secondItem="Q9n-cE-iME" secondAttribute="centerX" id="bXq-1a-YcE"/>
                             <constraint firstItem="koq-jS-ulO" firstAttribute="leading" secondItem="Q9n-cE-iME" secondAttribute="leading" id="fTU-Ob-Afs"/>
                             <constraint firstItem="koq-jS-ulO" firstAttribute="top" secondItem="P3o-RQ-IIj" secondAttribute="bottom" constant="8" id="ttr-Rf-C8c"/>
                         </constraints>
@@ -354,6 +371,7 @@
                     <connections>
                         <outlet property="actionButton" destination="1pC-U8-jyd" id="Vbo-Qv-Avb"/>
                         <outlet property="addItemButton" destination="ipR-3O-gN0" id="OFl-jy-WFI"/>
+                        <outlet property="emptyItemLbl" destination="tah-11-wm6" id="6Rf-f4-YtB"/>
                         <outlet property="itemTableView" destination="koq-jS-ulO" id="HhU-yL-LaB"/>
                         <outlet property="searchBar" destination="IhP-vr-ZLb" id="BJK-cN-Ua4"/>
                         <outlet property="searchSegmentedControl" destination="P3o-RQ-IIj" id="ecJ-BZ-hlF"/>
@@ -363,7 +381,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xgg-CT-Y8l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1184.8" y="-93.103448275862078"/>
+            <point key="canvasLocation" x="1183" y="-85"/>
         </scene>
         <!--Add Item-->
         <scene sceneID="zBX-V1-LHO">

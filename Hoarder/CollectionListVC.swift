@@ -11,6 +11,7 @@ import UIKit
 class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, ParentViewController {
     @IBOutlet weak var collectionTableView: UITableView!
     @IBOutlet weak var sortSegController: UISegmentedControl!
+    @IBOutlet weak var emptyCollectionLbl: UILabel!
 
     var collectionList = [CollectionType]()
     var willReloadData: Bool = false
@@ -83,6 +84,11 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     private func populateCollectionData() {
         BusyModal.startBusyModal(targetViewController: self)
         collectionList = DataAccessUtilities.getCollectionsList()
+        if collectionList.isEmpty {
+            emptyCollectionLbl.isHidden = false
+        } else {
+            emptyCollectionLbl.isHidden = true
+        }
         setSortOrder(sortBy: self.sortSegController.selectedSegmentIndex)
         collectionTableView.reloadData()
         BusyModal.stopBusyModal()
