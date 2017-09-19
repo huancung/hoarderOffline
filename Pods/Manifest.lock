@@ -1,4 +1,5 @@
 PODS:
+  - Instructions (1.1.0)
   - Realm (2.8.0):
     - Realm/Headers (= 2.8.0)
   - Realm/Headers (2.8.0)
@@ -6,12 +7,14 @@ PODS:
     - Realm (= 2.8.0)
 
 DEPENDENCIES:
+  - Instructions (~> 1.1.0)
   - RealmSwift
 
 SPEC CHECKSUMS:
+  Instructions: ff5738d6a637a46d1638a77d77261649f4da36a7
   Realm: 929243ad2b618b3232e70658bedc61110e7563f1
   RealmSwift: 5b7079b891f2833d1849294161ba3e092bbda3f6
 
-PODFILE CHECKSUM: 8bad1aacec18790c6993df70d1f54e6cf87d0c6e
+PODFILE CHECKSUM: 4874754c5447363f32839e2a8526884b9464f911
 
 COCOAPODS: 1.2.1

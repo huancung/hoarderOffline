@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Instructions.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Hoarder.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>15E5BA1189F3CD18CB68E8D188735813</key>
+		<key>6FFF9A0488BA9FA46CAC0F6F1BA0A397</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8EFD6AA3C418C0C22F6D78CEE42B5BA1</key>
+		<key>75CFEFE870E98D4B96D7013202AD2A7D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EE8C0BA7023E577E66CCEEFD79E4A1DD</key>
+		<key>A3862C3347CD2A032F00B9EAA3D712D2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D2A90AEA63CBEF1F48F2133F7AB33035</key>
 		<dict>
 			<key>primary</key>
 			<true/>

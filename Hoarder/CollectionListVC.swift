@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Instructions
 
-class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, ParentViewController {
+class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, CoachMarksControllerDataSource, CoachMarksControllerDelegate, ParentViewController {
     @IBOutlet weak var collectionTableView: UITableView!
     @IBOutlet weak var sortSegController: UISegmentedControl!
     @IBOutlet weak var emptyCollectionLbl: UILabel!
@@ -16,13 +17,16 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     var collectionList = [CollectionType]()
     var willReloadData: Bool = false
     var willSetCountUpdateObservers = true
+    let coachMarksController = CoachMarksController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.coachMarksController.dataSource = self
         collectionTableView.delegate = self
         collectionTableView.dataSource = self
         collectionTableView.backgroundColor = UIColor.clear
         populateCollectionData()
+        self.coachMarksController.start(on: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,6 +38,24 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
             willReloadData = false
             populateCollectionData()
         }
+    }
+    
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+        return 1
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController,
+                              coachMarkAt index: Int) -> CoachMark {
+        return coachMarksController.helper.makeCoachMark(for: sortSegController)
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+        let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
+        
+        coachViews.bodyView.hintLabel.text = "Hello! I'm a Coach Mark!"
+        coachViews.bodyView.nextLabel.text = "Ok!"
+        
+        return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
     }
     
     @IBAction func segControlValueChanged(_ sender: Any) {

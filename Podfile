@@ -7,4 +7,5 @@ target 'Hoarder' do
 
   # Pods for Hoarder
   pod 'RealmSwift'
+  pod 'Instructions', '~> 1.1.0'
 end
