@@ -15,7 +15,7 @@ class NavigationController: UINavigationController {
         
         let navbar = self.navigationBar
         navbar.tintColor = UIColor.darkGray
-        navbar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.darkGray]
+        navbar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.darkGray]
     }
 
 

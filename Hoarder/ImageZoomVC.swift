@@ -43,7 +43,7 @@ class ImageZoomVC: UIViewController, UIScrollViewDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafeRawPointer) {
+    @objc func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafeRawPointer) {
         if error == nil {
             let ac = UIAlertController(title: "Saved!", message: "Image is now saved to your phone.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

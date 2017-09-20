@@ -13,25 +13,25 @@ import RealmSwift
  Realm data object definition for an item.
  */
 public class Item: Object {
-    dynamic var collectionID = ""
-    dynamic var itemID = ""
-    dynamic var itemName = ""
-    dynamic var itemDesc = ""
-    dynamic var imageID = ""
-    dynamic var dateAdded = 0.0
-    dynamic var dateAddedString = ""
+    @objc dynamic var collectionID = ""
+    @objc dynamic var itemID = ""
+    @objc dynamic var itemName = ""
+    @objc dynamic var itemDesc = ""
+    @objc dynamic var imageID = ""
+    @objc dynamic var dateAdded = 0.0
+    @objc dynamic var dateAddedString = ""
 }
 
 /**
  Realm data object definition for a collection.
  */
 public class ItemCollection: Object {
-    dynamic var collectionName = ""
-    dynamic var category = ""
-    dynamic var collectionDesc = ""
-    dynamic var collectionID = ""
-    dynamic var itemCount = 0
-    dynamic var isFavorite = false
-    dynamic var dateCreated = 0.0
-    dynamic var dateCreatedString = ""
+    @objc dynamic var collectionName = ""
+    @objc dynamic var category = ""
+    @objc dynamic var collectionDesc = ""
+    @objc dynamic var collectionID = ""
+    @objc dynamic var itemCount = 0
+    @objc dynamic var isFavorite = false
+    @objc dynamic var dateCreated = 0.0
+    @objc dynamic var dateCreatedString = ""
 }

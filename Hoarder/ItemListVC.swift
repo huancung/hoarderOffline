@@ -241,7 +241,7 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     /**
      This function will display action options if items are selected during edit mode.
     */
-    func doneButtonPressed() {
+    @objc func doneButtonPressed() {
         if let selectedItems = itemTableView.indexPathsForSelectedRows, selectedItems.count > 0 {
             let optionMenu = UIAlertController(title: "Choose an Action", message: nil, preferredStyle: .actionSheet)
             

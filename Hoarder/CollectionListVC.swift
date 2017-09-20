@@ -13,6 +13,7 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     @IBOutlet weak var collectionTableView: UITableView!
     @IBOutlet weak var sortSegController: UISegmentedControl!
     @IBOutlet weak var emptyCollectionLbl: UILabel!
+    @IBOutlet weak var addButton: UIBarButtonItem!
 
     var collectionList = [CollectionType]()
     var willReloadData: Bool = false
@@ -22,6 +23,8 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
         self.coachMarksController.dataSource = self
+        self.coachMarksController.delegate = self
+        
         collectionTableView.delegate = self
         collectionTableView.dataSource = self
         collectionTableView.backgroundColor = UIColor.clear
@@ -41,21 +44,53 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
-        return 1
+        return 3
     }
     
     func coachMarksController(_ coachMarksController: CoachMarksController,
                               coachMarkAt index: Int) -> CoachMark {
-        return coachMarksController.helper.makeCoachMark(for: sortSegController)
+
+        switch index {
+        case 0:
+            let buttonView = addButton.value(forKey: "view") as? UIView
+            return coachMarksController.helper.makeCoachMark(for: buttonView, pointOfInterest: buttonView?.frame.origin)
+        case 1:
+            return coachMarksController.helper.makeCoachMark(for: emptyCollectionLbl)
+        case 2:
+            return coachMarksController.helper.makeCoachMark(for: sortSegController)
+        default:
+            return coachMarksController.helper.makeCoachMark()
+        }
     }
     
     func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+        var showArrow = false;
         let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
+
+        switch index {
+            
+        case 0:
+            showArrow = true
+            coachViews.bodyView.hintLabel.text = "Add a new collection here!"
+            coachViews.bodyView.nextLabel.text = "Ok!"
+        case 1:
+            showArrow = false
+            coachViews.bodyView.hintLabel.text = "Your collections will be listed here!"
+            coachViews.bodyView.nextLabel.text = "Ok!"
+        case 2:
+            showArrow = true
+            coachViews.bodyView.hintLabel.text = "Options for sorting your collections!"
+            coachViews.bodyView.nextLabel.text = "Ok!"
+        default:
+            coachViews.bodyView.hintLabel.text = "DONE!"
+            coachViews.bodyView.nextLabel.text = "DONE!"
+        }
         
-        coachViews.bodyView.hintLabel.text = "Hello! I'm a Coach Mark!"
-        coachViews.bodyView.nextLabel.text = "Ok!"
-        
-        return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+        if showArrow {
+            return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+        } else {
+            return (bodyView: coachViews.bodyView, arrowView: nil)
+        }
     }
     
     @IBAction func segControlValueChanged(_ sender: Any) {

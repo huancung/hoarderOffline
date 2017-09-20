@@ -204,6 +204,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="Veb-HS-s0v" id="OIX-qJ-W9K"/>
                         <outlet property="collectionTableView" destination="BmL-Oy-NWx" id="xzL-Lt-sx2"/>
                         <outlet property="emptyCollectionLbl" destination="2hA-5c-Lgc" id="IUh-6P-fEN"/>
                         <outlet property="sortSegController" destination="xda-33-72c" id="6Rn-Eh-Ekq"/>

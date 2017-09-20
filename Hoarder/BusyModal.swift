@@ -54,7 +54,7 @@ public class BusyModal {
             actInd.center = modal.center
             actInd.hidesWhenStopped = true
             actInd.activityIndicatorViewStyle = .whiteLarge
-            modal.addSubview(actInd)
+            modal.contentView.addSubview(actInd)
             actInd.startAnimating()
             
             view.addSubview(modal)
