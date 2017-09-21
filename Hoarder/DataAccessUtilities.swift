@@ -362,4 +362,26 @@ public class DataAccessUtilities {
             print("Nothing to delete \(imageID)")
         }
     }
+
+    /**
+     Stores a flag determining whether or not a tutorial has been completed for a given view.
+     - parameters:
+         - step: String
+         - flag: Bool
+     */
+    static func setTutorialFlag(step: String, flag: Bool) {
+        let defaults = UserDefaults.standard
+        defaults.set(flag, forKey: step)
+    }
+    
+    /**
+     Stores a flag determining whether or not a tutorial has been completed for a given view.
+     - parameters:
+         - step: String
+     - returns: Bool
+     */
+    static func getTutorialFlag(step: String) -> Bool {
+        let defaults = UserDefaults.standard
+        return defaults.bool(forKey: step)
+    }
 }

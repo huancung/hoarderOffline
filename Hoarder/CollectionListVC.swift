@@ -22,14 +22,17 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.coachMarksController.dataSource = self
-        self.coachMarksController.delegate = self
         
         collectionTableView.delegate = self
         collectionTableView.dataSource = self
         collectionTableView.backgroundColor = UIColor.clear
         populateCollectionData()
-        self.coachMarksController.start(on: self)
+        
+        if !DataAccessUtilities.getTutorialFlag(step: TutorialViews.CollectionListView.rawValue) {
+            coachMarksController.dataSource = self
+            coachMarksController.delegate = self
+            coachMarksController.start(on: self)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,16 +74,16 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
             
         case 0:
             showArrow = true
-            coachViews.bodyView.hintLabel.text = "Add a new collection here!"
-            coachViews.bodyView.nextLabel.text = "Ok!"
+            coachViews.bodyView.hintLabel.text = "Add a new collection here"
+            coachViews.bodyView.nextLabel.text = "Next"
         case 1:
             showArrow = false
-            coachViews.bodyView.hintLabel.text = "Your collections will be listed here!"
-            coachViews.bodyView.nextLabel.text = "Ok!"
+            coachViews.bodyView.hintLabel.text = "Your collections will be listed here"
+            coachViews.bodyView.nextLabel.text = "Next"
         case 2:
             showArrow = true
-            coachViews.bodyView.hintLabel.text = "Options for sorting your collections!"
-            coachViews.bodyView.nextLabel.text = "Ok!"
+            coachViews.bodyView.hintLabel.text = "Options for sorting your collections"
+            coachViews.bodyView.nextLabel.text = "Done"
         default:
             coachViews.bodyView.hintLabel.text = "DONE!"
             coachViews.bodyView.nextLabel.text = "DONE!"
@@ -91,6 +94,10 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         } else {
             return (bodyView: coachViews.bodyView, arrowView: nil)
         }
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, didEndShowingBySkipping skipped: Bool) {
+        DataAccessUtilities.setTutorialFlag(step: TutorialViews.CollectionListView.rawValue, flag: true)
     }
     
     @IBAction func segControlValueChanged(_ sender: Any) {

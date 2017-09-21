@@ -7,15 +7,19 @@
 //
 
 import UIKit
+import Instructions
 
 /**
  View Controller for the New Collection View.
  */
-class NewCollectionVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class NewCollectionVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, CoachMarksControllerDataSource, CoachMarksControllerDelegate{
     @IBOutlet weak var collectionNameText: UITextField!
     @IBOutlet weak var categoryPicker: UIPickerView!
     @IBOutlet weak var descriptionText: UITextView!
-
+    @IBOutlet weak var createButton: UIButton!
+    
+    let coachMarksController = CoachMarksController()
+    
     let collectionCategories = ["Auto Supplies", "Clothing", "Toys", "Craft Supplies", "Furniture", "Household Goods", "Electronics", "Art", "Animals", "General Stuff", "Books", "Accessories", "Supplies", "Tools", "Toiletries", "Memorabilia", "Movies", "Antiques", "Hobby", "Other", "Garden", "Outdoors", "Food", "Wine and Spirits", "Baby and Kids", "Sports"]
     
     var parentVC: ParentViewController?
@@ -26,7 +30,71 @@ class NewCollectionVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         categoryPicker.delegate = self
         sortedCollectionCategories = collectionCategories.sorted()
         navigationItem.setHidesBackButton(true, animated: true)
-        // Do any additional setup after loading the view.
+        
+        if !DataAccessUtilities.getTutorialFlag(step: TutorialViews.NewCollectionView.rawValue) {
+            coachMarksController.dataSource = self
+            coachMarksController.delegate = self
+            coachMarksController.start(on: self)
+        }
+    }
+    
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+        return 4
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController,
+                              coachMarkAt index: Int) -> CoachMark {
+        
+        switch index {
+        case 0:
+            return coachMarksController.helper.makeCoachMark(for: collectionNameText)
+        case 1:
+            return coachMarksController.helper.makeCoachMark(for: categoryPicker)
+        case 2:
+            return coachMarksController.helper.makeCoachMark(for: descriptionText)
+        case 3:
+            return coachMarksController.helper.makeCoachMark(for: createButton)
+        default:
+            return coachMarksController.helper.makeCoachMark()
+        }
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+        var showArrow = false;
+        let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
+        
+        switch index {
+            
+        case 0:
+            showArrow = true
+            coachViews.bodyView.hintLabel.text = "Add a collection name"
+            coachViews.bodyView.nextLabel.text = "Next"
+        case 1:
+            showArrow = false
+            coachViews.bodyView.hintLabel.text = "Select a category"
+            coachViews.bodyView.nextLabel.text = "Next"
+        case 2:
+            showArrow = true
+            coachViews.bodyView.hintLabel.text = "Add a description for this collection"
+            coachViews.bodyView.nextLabel.text = "Next"
+        case 3:
+            showArrow = true
+            coachViews.bodyView.hintLabel.text = "Create your hoard!"
+            coachViews.bodyView.nextLabel.text = "Done"
+        default:
+            coachViews.bodyView.hintLabel.text = "DONE!"
+            coachViews.bodyView.nextLabel.text = "DONE!"
+        }
+        
+        if showArrow {
+            return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+        } else {
+            return (bodyView: coachViews.bodyView, arrowView: nil)
+        }
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, didEndShowingBySkipping skipped: Bool) {
+        DataAccessUtilities.setTutorialFlag(step: TutorialViews.NewCollectionView.rawValue, flag: true)
     }
 
     @IBAction func createCollectionPressed(_ sender: Any) {
