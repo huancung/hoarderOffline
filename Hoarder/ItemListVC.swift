@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Instructions
 
-class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIPickerViewDataSource, UIPickerViewDelegate, ParentViewController {
+class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CoachMarksControllerDataSource, CoachMarksControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, ParentViewController {
     @IBOutlet weak var itemTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchSegmentedControl: UISegmentedControl!
@@ -25,6 +26,7 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var filteredItemList = [ItemType]()
     var inSearchMode = false
     var willReloadData: Bool = false
+    let coachMarksController = CoachMarksController()
     var parentVC: ParentViewController?
     
     enum ItemActionOption: String {
@@ -48,6 +50,12 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             topItem.backBarButtonItem = button
         }
         
+        if !DataAccessUtilities.getTutorialFlag(step: TutorialViews.ItemListView.rawValue) {
+            coachMarksController.dataSource = self
+            coachMarksController.delegate = self
+            coachMarksController.start(on: self)
+        }
+        
         populateItemCellData()
     }
     
@@ -60,6 +68,68 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
+    }
+    
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+        return 4
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController,
+                              coachMarkAt index: Int) -> CoachMark {
+        
+        switch index {
+        case 0:
+            let buttonView = addItemButton.value(forKey: "view") as? UIView
+            return coachMarksController.helper.makeCoachMark(for: buttonView, pointOfInterest: buttonView?.frame.origin)
+        case 1:
+            let buttonView = actionButton.value(forKey: "view") as? UIView
+            //return coachMarksController.helper.makeCoachMark(for: buttonView, pointOfInterest: buttonView?.frame.origin)
+            return coachMarksController.helper.makeCoachMark(for: buttonView)
+        case 2:
+            return coachMarksController.helper.makeCoachMark(for: searchBar)
+        case 3:
+            return coachMarksController.helper.makeCoachMark(for: emptyItemLbl)
+        default:
+            return coachMarksController.helper.makeCoachMark()
+        }
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+        var showArrow = false;
+        let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
+        
+        switch index {
+            
+        case 0:
+            showArrow = true
+            coachViews.bodyView.hintLabel.text = "Add a new item to collection here"
+            coachViews.bodyView.nextLabel.text = "Next"
+        case 1:
+            showArrow = true
+            coachViews.bodyView.hintLabel.text = "Enter edit mode to move, copy, or delete items here"
+            coachViews.bodyView.nextLabel.text = "Next"
+        case 2:
+            showArrow = true
+            coachViews.bodyView.hintLabel.text = "Search items by name or description here"
+            coachViews.bodyView.nextLabel.text = "Done"
+        case 3:
+            showArrow = false
+            coachViews.bodyView.hintLabel.text = "Added items will appear here"
+            coachViews.bodyView.nextLabel.text = "Done"
+        default:
+            coachViews.bodyView.hintLabel.text = "DONE!"
+            coachViews.bodyView.nextLabel.text = "DONE!"
+        }
+        
+        if showArrow {
+            return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+        } else {
+            return (bodyView: coachViews.bodyView, arrowView: nil)
+        }
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, didEndShowingBySkipping skipped: Bool) {
+        //DataAccessUtilities.setTutorialFlag(step: TutorialViews.ItemListView.rawValue, flag: true)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -208,13 +278,6 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             } else {
                 filteredItemList = itemList.filter({$0.description.lowercased().range(of: searchText) != nil})
             }
-            
-            
-//            if filteredItemList.isEmpty {
-//                notFoundLbl.isHidden = false
-//            } else {
-//                notFoundLbl.isHidden = true
-//            }
             
             itemTableView.reloadData()
         }

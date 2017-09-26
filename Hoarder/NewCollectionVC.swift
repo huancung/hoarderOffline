@@ -94,7 +94,7 @@ class NewCollectionVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     }
     
     func coachMarksController(_ coachMarksController: CoachMarksController, didEndShowingBySkipping skipped: Bool) {
-        DataAccessUtilities.setTutorialFlag(step: TutorialViews.NewCollectionView.rawValue, flag: true)
+        //DataAccessUtilities.setTutorialFlag(step: TutorialViews.NewCollectionView.rawValue, flag: true)
     }
 
     @IBAction func createCollectionPressed(_ sender: Any) {

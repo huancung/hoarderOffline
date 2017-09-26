@@ -819,7 +819,7 @@
                     <connections>
                         <outlet property="categoryPicker" destination="N0q-3y-gAr" id="zdm-AM-aVN"/>
                         <outlet property="collectionNameText" destination="skj-vN-F4w" id="2co-BA-Twi"/>
-                        <outlet property="createButton" destination="0q3-3A-TFc" id="aTa-tN-yyl"/>
+                        <outlet property="createButton" destination="0q3-3A-TFc" id="hXr-L3-mK3"/>
                         <outlet property="descriptionText" destination="smr-6W-bzq" id="Gbw-7C-zOm"/>
                     </connections>
                 </viewController>
