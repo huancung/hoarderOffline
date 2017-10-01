@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import Instructions
 
-class ItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CoachMarksControllerDataSource, CoachMarksControllerDelegate {
     @IBOutlet weak var itemImage: UIImageView!
     @IBOutlet weak var nameText: UITextField!
     @IBOutlet weak var descriptionText: UITextView!
     @IBOutlet var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var saveButton: UIButton!
     
     var isImageSet = false
     var imagePicker: UIImagePickerController!
@@ -21,6 +23,7 @@ class ItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCon
     var parentVC: ParentViewController?
     var editMode: Bool = false
     var imageRemoved: Bool = false
+    let coachMarksController = CoachMarksController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,8 +46,72 @@ class ItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCon
             nameText.text = loadedItem?.itemName
             descriptionText.text = loadedItem?.description
         }
+        
+        if !DataAccessUtilities.getTutorialFlag(step: TutorialViews.ItemView.rawValue) {
+            coachMarksController.dataSource = self
+            coachMarksController.delegate = self
+            coachMarksController.start(on: self)
+        }
     }
     
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+        return 4
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController,
+                              coachMarkAt index: Int) -> CoachMark {
+        
+        switch index {
+        case 0:
+            return coachMarksController.helper.makeCoachMark(for: itemImage)
+        case 1:
+            return coachMarksController.helper.makeCoachMark(for: nameText)
+        case 2:
+            return coachMarksController.helper.makeCoachMark(for: descriptionText)
+        case 3:
+            return coachMarksController.helper.makeCoachMark(for: saveButton)
+        default:
+            return coachMarksController.helper.makeCoachMark()
+        }
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+        var showArrow = false;
+        let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
+        
+        switch index {
+            
+        case 0:
+            showArrow = true
+            coachViews.bodyView.hintLabel.text = "Add an image here. You don't have to but it'll probably make your life easier."
+            coachViews.bodyView.nextLabel.text = "Next"
+        case 1:
+            showArrow = true
+            coachViews.bodyView.hintLabel.text = "Name of your item here."
+            coachViews.bodyView.nextLabel.text = "Next"
+        case 2:
+            showArrow = true
+            coachViews.bodyView.hintLabel.text = "Describe your item here. This is optional but it will help you find the item later."
+            coachViews.bodyView.nextLabel.text = "Done"
+        case 3:
+            showArrow = false
+            coachViews.bodyView.hintLabel.text = "Save your item!"
+            coachViews.bodyView.nextLabel.text = "Done"
+        default:
+            coachViews.bodyView.hintLabel.text = "DONE!"
+            coachViews.bodyView.nextLabel.text = "DONE!"
+        }
+        
+        if showArrow {
+            return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+        } else {
+            return (bodyView: coachViews.bodyView, arrowView: nil)
+        }
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, didEndShowingBySkipping skipped: Bool) {
+        DataAccessUtilities.setTutorialFlag(step: TutorialViews.ItemView.rawValue, flag: true)
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }

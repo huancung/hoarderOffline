@@ -500,6 +500,7 @@
                         <outlet property="descriptionText" destination="wk0-1d-QwT" id="kg0-xJ-inh"/>
                         <outlet property="itemImage" destination="ykT-dk-5bH" id="srj-fT-GqN"/>
                         <outlet property="nameText" destination="oPv-bw-lxE" id="IvX-xi-Y6G"/>
+                        <outlet property="saveButton" destination="eZg-n3-emt" id="3RY-9d-yUO"/>
                         <segue destination="YPE-bH-f3v" kind="show" identifier="imageZoomSegue" id="jpo-RX-5lP"/>
                     </connections>
                 </viewController>

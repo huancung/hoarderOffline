@@ -74,15 +74,15 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
             
         case 0:
             showArrow = true
-            coachViews.bodyView.hintLabel.text = "Add a new collection here"
+            coachViews.bodyView.hintLabel.text = "Add a new collection here."
             coachViews.bodyView.nextLabel.text = "Next"
         case 1:
             showArrow = false
-            coachViews.bodyView.hintLabel.text = "Your collections will be listed here"
+            coachViews.bodyView.hintLabel.text = "Your collections will be listed here."
             coachViews.bodyView.nextLabel.text = "Next"
         case 2:
             showArrow = true
-            coachViews.bodyView.hintLabel.text = "Options for sorting your collections"
+            coachViews.bodyView.hintLabel.text = "Options for sorting your collections."
             coachViews.bodyView.nextLabel.text = "Done"
         default:
             coachViews.bodyView.hintLabel.text = "DONE!"

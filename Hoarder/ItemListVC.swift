@@ -83,7 +83,6 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             return coachMarksController.helper.makeCoachMark(for: buttonView, pointOfInterest: buttonView?.frame.origin)
         case 1:
             let buttonView = actionButton.value(forKey: "view") as? UIView
-            //return coachMarksController.helper.makeCoachMark(for: buttonView, pointOfInterest: buttonView?.frame.origin)
             return coachMarksController.helper.makeCoachMark(for: buttonView)
         case 2:
             return coachMarksController.helper.makeCoachMark(for: searchBar)
@@ -102,19 +101,19 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             
         case 0:
             showArrow = true
-            coachViews.bodyView.hintLabel.text = "Add a new item to collection here"
+            coachViews.bodyView.hintLabel.text = "Add a new item to collection here."
             coachViews.bodyView.nextLabel.text = "Next"
         case 1:
             showArrow = true
-            coachViews.bodyView.hintLabel.text = "Enter edit mode to move, copy, or delete items here"
+            coachViews.bodyView.hintLabel.text = "Enter edit mode to move, copy, or delete items here."
             coachViews.bodyView.nextLabel.text = "Next"
         case 2:
             showArrow = true
-            coachViews.bodyView.hintLabel.text = "Search items by name or description here"
+            coachViews.bodyView.hintLabel.text = "Search items by name or description here."
             coachViews.bodyView.nextLabel.text = "Done"
         case 3:
             showArrow = false
-            coachViews.bodyView.hintLabel.text = "Added items will appear here"
+            coachViews.bodyView.hintLabel.text = "Added items will appear here."
             coachViews.bodyView.nextLabel.text = "Done"
         default:
             coachViews.bodyView.hintLabel.text = "DONE!"
@@ -129,7 +128,7 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     func coachMarksController(_ coachMarksController: CoachMarksController, didEndShowingBySkipping skipped: Bool) {
-        //DataAccessUtilities.setTutorialFlag(step: TutorialViews.ItemListView.rawValue, flag: true)
+        DataAccessUtilities.setTutorialFlag(step: TutorialViews.ItemListView.rawValue, flag: true)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

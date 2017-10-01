@@ -67,15 +67,15 @@ class NewCollectionVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             
         case 0:
             showArrow = true
-            coachViews.bodyView.hintLabel.text = "Add a collection name"
+            coachViews.bodyView.hintLabel.text = "Add a collection name."
             coachViews.bodyView.nextLabel.text = "Next"
         case 1:
             showArrow = false
-            coachViews.bodyView.hintLabel.text = "Select a category"
+            coachViews.bodyView.hintLabel.text = "Select a category."
             coachViews.bodyView.nextLabel.text = "Next"
         case 2:
             showArrow = true
-            coachViews.bodyView.hintLabel.text = "Add a description for this collection"
+            coachViews.bodyView.hintLabel.text = "Add a description for this collection."
             coachViews.bodyView.nextLabel.text = "Next"
         case 3:
             showArrow = true
