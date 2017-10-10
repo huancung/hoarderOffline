@@ -17,7 +17,11 @@ class NewCollectionVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     @IBOutlet weak var categoryPicker: UIPickerView!
     @IBOutlet weak var descriptionText: UITextView!
     @IBOutlet weak var createButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
     
+    var isFavorite = false
+    var unselectedAlpha = 0.65
+    var selectedAlpha = 1.0
     let coachMarksController = CoachMarksController()
     
     let collectionCategories = ["Auto Supplies", "Clothing", "Toys", "Craft Supplies", "Furniture", "Household Goods", "Electronics", "Art", "Animals", "General Stuff", "Books", "Accessories", "Supplies", "Tools", "Toiletries", "Memorabilia", "Movies", "Antiques", "Hobby", "Other", "Garden", "Outdoors", "Food", "Wine and Spirits", "Baby and Kids", "Sports"]
@@ -39,7 +43,7 @@ class NewCollectionVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     }
     
     func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
-        return 4
+        return 5
     }
     
     func coachMarksController(_ coachMarksController: CoachMarksController,
@@ -53,6 +57,8 @@ class NewCollectionVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         case 2:
             return coachMarksController.helper.makeCoachMark(for: descriptionText)
         case 3:
+            return coachMarksController.helper.makeCoachMark(for: createButton)
+        case 4:
             return coachMarksController.helper.makeCoachMark(for: createButton)
         default:
             return coachMarksController.helper.makeCoachMark()
@@ -79,6 +85,10 @@ class NewCollectionVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             coachViews.bodyView.nextLabel.text = "Next"
         case 3:
             showArrow = true
+            coachViews.bodyView.hintLabel.text = "Mark this collection as a favorite."
+            coachViews.bodyView.nextLabel.text = "Done"
+        case 4:
+            showArrow = true
             coachViews.bodyView.hintLabel.text = "Create your hoard!"
             coachViews.bodyView.nextLabel.text = "Done"
         default:
@@ -94,7 +104,7 @@ class NewCollectionVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     }
     
     func coachMarksController(_ coachMarksController: CoachMarksController, didEndShowingBySkipping skipped: Bool) {
-        //DataAccessUtilities.setTutorialFlag(step: TutorialViews.NewCollectionView.rawValue, flag: true)
+        DataAccessUtilities.setTutorialFlag(step: TutorialViews.NewCollectionView.rawValue, flag: true)
     }
 
     @IBAction func createCollectionPressed(_ sender: Any) {
@@ -109,7 +119,7 @@ class NewCollectionVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             
             AlertUtil.messageThenPop(title: "New Collection Created!", message: "Now you can start adding items to this collection!", targetViewController: self)
             
-            let collectionID = DataAccessUtilities.saveCollectionInfo(collectionName: collectionName, category: category, description: description)
+            let collectionID = DataAccessUtilities.saveCollectionInfo(collectionName: collectionName, category: category, description: description, isFavorite: isFavorite)
             DataAccessUtilities.updateItemCount(collectionID: collectionID)
             parentVC?.willReloadData = true
         } else {
@@ -121,6 +131,28 @@ class NewCollectionVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func favoriteButtonPressed(_ sender: Any) {
+        if isFavorite {
+            setFavorite(favorite: false)
+        } else {
+            setFavorite(favorite: true)
+        }
+    }
+    
+    /**
+     Toggles the favorite button style.
+     - parameters:
+     - favorite: true or false.
+     */
+    private func setFavorite(favorite: Bool) {
+        if favorite {
+            favoriteButton.alpha = CGFloat(selectedAlpha)
+            isFavorite = true
+        } else {
+            favoriteButton.alpha = CGFloat(unselectedAlpha)
+            isFavorite = false
+        }
+    }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return sortedCollectionCategories[row].capitalized
     }

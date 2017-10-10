@@ -52,7 +52,6 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func coachMarksController(_ coachMarksController: CoachMarksController,
                               coachMarkAt index: Int) -> CoachMark {
-
         switch index {
         case 0:
             let buttonView = addButton.value(forKey: "view") as? UIView
@@ -101,6 +100,7 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     @IBAction func segControlValueChanged(_ sender: Any) {
+        print("value change")
         setSortOrder(sortBy: self.sortSegController.selectedSegmentIndex)
         collectionTableView.reloadData()
     }
@@ -166,6 +166,7 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     private func setSortOrder(sortBy: Int) {
         switch sortBy {
             case 0:
+                print("favorite")
                 collectionList = collectionList.sorted(by: { (c1, c2) -> Bool in
                     if c1.isFavorite == true && c2.isFavorite == false {
                         return true //this will return true: c1 is priority, c2 is not
@@ -174,14 +175,14 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
                         return false //this will return false: c2 is priority, c1 is not
                     }
                     if c1.isFavorite == c2.isFavorite {
-                        return c1.collectionName < c2.collectionName // do alpha instead
+                        return c1.collectionName.uppercased() < c2.collectionName.uppercased() // do alpha instead
                     }
                     return false
                 })
-            case 1:
-                collectionList = collectionList.sorted(by: {$1.collectionName > $0.collectionName})
             default:
-                collectionList = collectionList.sorted(by: {$0.dateCreated > $1.dateCreated})
+                print("Name sort")
+                
+                collectionList = collectionList.sorted(by: {$1.collectionName.uppercased() > $0.collectionName.uppercased()})
         }
     }
     
@@ -210,7 +211,7 @@ class CollectionListVC: UIViewController, UITableViewDelegate, UITableViewDataSo
                     destination.parentVC = self
                     destination.collectionName = collection.collectionName
                     destination.collectionUID = collection.collectionID
-                    destination.collectionsList = collectionList.sorted(by: {$1.collectionName > $0.collectionName})
+                    destination.collectionsList = collectionList.sorted(by: {$1.collectionName.uppercased() > $0.collectionName.uppercased()})
                 }
             }
         }

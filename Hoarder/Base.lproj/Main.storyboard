@@ -53,7 +53,6 @@
                                 <segments>
                                     <segment title="Favorites"/>
                                     <segment title="Name"/>
-                                    <segment title="Date"/>
                                 </segments>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -556,11 +555,6 @@
                                 <action selector="donePressed:" destination="YPE-bH-f3v" id="n1I-Nn-YEA"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="downloadIcon" id="KkP-Q6-zER">
-                            <connections>
-                                <action selector="saveImagePressed:" destination="YPE-bH-f3v" id="HQf-yl-2B0"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="Moc-lr-k5n" id="bIz-uf-6sM"/>
@@ -648,7 +642,7 @@
                                 </constraints>
                                 <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qwn-lq-hjn">
                                 <rect key="frame" x="16" y="79" width="30" height="30"/>
@@ -740,13 +734,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name of Collection" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="skj-vN-F4w">
-                                <rect key="frame" x="16" y="79" width="343" height="30"/>
+                                <rect key="frame" x="61" y="79" width="298" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="nNZ-Jd-Egm"/>
                                 </constraints>
                                 <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="smr-6W-bzq">
                                 <rect key="frame" x="16" y="321" width="343" height="117"/>
@@ -787,17 +781,31 @@
                                     <action selector="createCollectionPressed:" destination="1qB-6Z-Om6" eventType="touchUpInside" id="Xhs-zs-S1q"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRb-K4-wQU">
+                                <rect key="frame" x="16" y="79" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="h4w-6j-V8C"/>
+                                    <constraint firstAttribute="width" constant="30" id="quv-Os-RWD"/>
+                                </constraints>
+                                <state key="normal" image="favorite"/>
+                                <connections>
+                                    <action selector="favoriteButtonPressed:" destination="RV3-Bb-hMb" eventType="touchUpInside" id="LCv-Fo-nJ2"/>
+                                    <action selector="favoriteButtonPressed:" destination="1qB-6Z-Om6" eventType="touchUpInside" id="ctb-3A-Vnn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.94509803921568625" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="EYD-YO-w5E" firstAttribute="trailing" secondItem="F8Y-EA-vj9" secondAttribute="trailingMargin" id="1JV-is-mTJ"/>
                             <constraint firstItem="EYD-YO-w5E" firstAttribute="top" secondItem="skj-vN-F4w" secondAttribute="bottom" constant="8" id="1mV-tz-w3Z"/>
+                            <constraint firstItem="uRb-K4-wQU" firstAttribute="leading" secondItem="F8Y-EA-vj9" secondAttribute="leadingMargin" id="71h-bT-VoE"/>
                             <constraint firstItem="skj-vN-F4w" firstAttribute="trailing" secondItem="F8Y-EA-vj9" secondAttribute="trailingMargin" id="7s1-ge-mXS"/>
                             <constraint firstItem="0q3-3A-TFc" firstAttribute="top" secondItem="smr-6W-bzq" secondAttribute="bottom" constant="8" id="91X-Se-gT1"/>
+                            <constraint firstItem="uRb-K4-wQU" firstAttribute="top" secondItem="nT6-Y2-fB5" secondAttribute="bottom" constant="15" id="9Z6-Ji-GtN"/>
+                            <constraint firstItem="skj-vN-F4w" firstAttribute="leading" secondItem="uRb-K4-wQU" secondAttribute="trailing" constant="15" id="IqQ-j3-Fc2"/>
                             <constraint firstItem="smr-6W-bzq" firstAttribute="leading" secondItem="ps7-f5-kou" secondAttribute="leading" id="OTx-Mn-Psx"/>
                             <constraint firstItem="0q3-3A-TFc" firstAttribute="leading" secondItem="F8Y-EA-vj9" secondAttribute="leadingMargin" id="VnJ-CL-XnY"/>
                             <constraint firstItem="smr-6W-bzq" firstAttribute="top" secondItem="ps7-f5-kou" secondAttribute="bottom" constant="8" symbolic="YES" id="aaF-yY-6i0"/>
-                            <constraint firstItem="skj-vN-F4w" firstAttribute="leading" secondItem="F8Y-EA-vj9" secondAttribute="leadingMargin" id="d9K-g3-t4w"/>
                             <constraint firstItem="skj-vN-F4w" firstAttribute="top" secondItem="nT6-Y2-fB5" secondAttribute="bottom" constant="15" id="eSw-xD-ChU"/>
                             <constraint firstItem="EYD-YO-w5E" firstAttribute="leading" secondItem="F8Y-EA-vj9" secondAttribute="leadingMargin" id="eiQ-FH-COT"/>
                             <constraint firstItem="ps7-f5-kou" firstAttribute="top" secondItem="N0q-3y-gAr" secondAttribute="bottom" constant="8" id="hZ0-FE-jIi"/>
@@ -822,15 +830,15 @@
                         <outlet property="collectionNameText" destination="skj-vN-F4w" id="2co-BA-Twi"/>
                         <outlet property="createButton" destination="0q3-3A-TFc" id="hXr-L3-mK3"/>
                         <outlet property="descriptionText" destination="smr-6W-bzq" id="Gbw-7C-zOm"/>
+                        <outlet property="favoriteButton" destination="uRb-K4-wQU" id="Ynb-Jt-ZZW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vvm-ZL-2GM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="302" y="645"/>
+            <point key="canvasLocation" x="301.60000000000002" y="644.52773613193403"/>
         </scene>
     </scenes>
     <resources>
-        <image name="downloadIcon" width="25" height="25"/>
         <image name="favorite" width="512" height="512"/>
         <image name="imagePlaceholder" width="420" height="420"/>
         <image name="settings" width="256" height="256"/>

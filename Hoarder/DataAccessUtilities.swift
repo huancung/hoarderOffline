@@ -77,7 +77,7 @@ public class DataAccessUtilities {
         - category: Category of that the collection.
         - description: Description of the collection.
      */
-    static func saveCollectionInfo(collectionName: String, category: String, description: String) -> String {
+    static func saveCollectionInfo(collectionName: String, category: String, description: String, isFavorite: Bool) -> String {
         let itemCollection = ItemCollection()
         let collectionID = NSUUID().uuidString
         
@@ -87,7 +87,7 @@ public class DataAccessUtilities {
         itemCollection.collectionID = collectionID
         itemCollection.itemCount = 0
         itemCollection.dateCreated = DateTimeUtilities.getTimestamp()
-        itemCollection.isFavorite = false
+        itemCollection.isFavorite = isFavorite
         
         do {
             try realm.write {
@@ -299,7 +299,7 @@ public class DataAccessUtilities {
         - collectionID: id of the collection to update.
      - Returns: item count as Int.
      */
-    static func getItemCount(collectionID: String) -> Int{
+    static func getItemCount(collectionID: String) -> Int {
         let itemDataRef = realm.objects(Item.self).filter("collectionID ='\(collectionID)'")
         
         return itemDataRef.count
@@ -350,12 +350,12 @@ public class DataAccessUtilities {
     /**
      Deletes a store image.
      - parameters:
-        - imageID: id of the image.
+         - imageID: id of the image.
      */
-    static func deleteImageFromCache(imageID: String){
+    static func deleteImageFromCache(imageID: String) {
         let fileManager = FileManager.default
         let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("\(imageID).png")
-        if fileManager.fileExists(atPath: path){
+        if fileManager.fileExists(atPath: path) {
             try! fileManager.removeItem(atPath: path)
             print("Delete Image \(imageID)")
         }else{

@@ -222,8 +222,18 @@ class ItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCon
     */
     private func saveItemWithImage(itemName: String, description: String) {
         if let image = itemImage.image {
-            // 1/6 the image size
-            let targetSize = CGSize(width: image.size.width/6, height: image.size.height/6)
+
+            let height = image.size.height
+            let width = image.size.width
+            let targetSize:CGSize!
+            
+            // Resizing the image to conserve space if it's too large
+            if (height + width) > 1500.0 {
+                targetSize = CGSize(width: width/5, height: height/5)
+            } else {
+                targetSize = CGSize(width: width, height: height)
+            }
+        
             let resizedImage = resizeImage(image: image, targetSize: targetSize)
             
             let imageKey = DataAccessUtilities.saveImage(image: resizedImage)
@@ -268,7 +278,7 @@ class ItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCon
         let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
         
         // Actually do the resizing to the rect using the ImageContext stuff
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
         image.draw(in: rect)
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

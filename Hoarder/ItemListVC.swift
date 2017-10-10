@@ -110,7 +110,7 @@ class ItemListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         case 2:
             showArrow = true
             coachViews.bodyView.hintLabel.text = "Search items by name or description here."
-            coachViews.bodyView.nextLabel.text = "Done"
+            coachViews.bodyView.nextLabel.text = "Next,m"
         case 3:
             showArrow = false
             coachViews.bodyView.hintLabel.text = "Added items will appear here."
